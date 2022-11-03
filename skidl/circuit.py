@@ -321,7 +321,7 @@ class Circuit(SkidlBaseObject):
                         except AttributeError:
                             pass
                 else:
-                    active_logger.active_logger.warning(
+                    active_logger.warning(
                         "Removing non-existent package {} from this circuit.".format(
                             package.name
                         )
@@ -943,7 +943,7 @@ class Circuit(SkidlBaseObject):
         from . import skidl
 
         # Reset the counters to clear any warnings/errors from previous run.
-        active_logger.active_logger.active_logger.error.reset()
+        active_logger.error.reset()
         active_logger.warning.reset()
 
         self._preprocess()
