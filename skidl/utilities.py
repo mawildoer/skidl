@@ -149,9 +149,19 @@ def find_and_open_file(
 
     # Search through the directory paths for a file whose name matches the regular expression.
     for path in paths:
+        # if the filename exists at this exact path, use it
+        explicit_path = os.path.join(path, dirname, filename)
+        if os.path.exists(explicit_path):
+            try:
+                # Return the first file that matches the criteria.
+                return open(explicit_path, encoding="latin_1"), explicit_path
+            except (IOError, FileNotFoundError, TypeError):
+                # File failed, so keep searching.
+                pass
+
         # Search through the files in a particular directory path.
         descent_ctr = descend  # Controls the descent through the path.
-        for root, dirnames, filenames in os.walk(path):
+        for root, subdirnames, filenames in os.walk(path):
             # if the filename exists at this exact path, use it
             explicit_path = os.path.join(root, path, dirname, filename)
             if os.path.exists(os.path.join(root, path, dirname, filename)):
